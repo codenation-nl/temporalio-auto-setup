@@ -201,10 +201,10 @@ setup_mysql_schema() {
 
     VISIBILITY_SCHEMA_DIR=${TEMPORAL_HOME}/schema/mysql/${MYSQL_VERSION_DIR}/visibility/versioned
     if [[ ${SKIP_DB_CREATE} != true ]]; then
-        temporal-sql-tool --ep "${MYSQL_SEEDS}" -u "${MYSQL_USER}" -p "${DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" create
+        temporal-sql-tool --ep "${VISIBILITY_MYSQL_SEEDS}" -u "${VISIBILITY_MYSQL_USER}" -p "${VISIBILITY_DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" --pw "${VISIBILITY_MYSQL_PWD}" create
     fi
-    temporal-sql-tool --ep "${MYSQL_SEEDS}" -u "${MYSQL_USER}" -p "${DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" setup-schema -v 0.0
-    temporal-sql-tool --ep "${MYSQL_SEEDS}" -u "${MYSQL_USER}" -p "${DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" update-schema -d "${VISIBILITY_SCHEMA_DIR}"
+    temporal-sql-tool --ep "${VISIBILITY_MYSQL_SEEDS}" -u "${VISIBILITY_MYSQL_USER}" -p "${VISIBILITY_DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" --pw "${VISIBILITY_MYSQL_PWD}" setup-schema -v 0.0
+    temporal-sql-tool --ep "${VISIBILITY_MYSQL_SEEDS}" -u "${VISIBILITY_MYSQL_USER}" -p "${VISIBILITY_DB_PORT}" "${MYSQL_CONNECT_ATTR[@]}" --db "${VISIBILITY_DBNAME}" --pw "${VISIBILITY_MYSQL_PWD}" update-schema -d "${VISIBILITY_SCHEMA_DIR}"
 }
 
 setup_postgres_schema() {
